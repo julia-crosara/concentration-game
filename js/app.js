@@ -22,6 +22,7 @@ deck.addEventListener('click', function() {
         addToggleCard(clickTarget);
         if (toggledCards.length === 2) {
             checkForMatch(clickTarget);
+            addMove();
         }
     }
 });
@@ -42,9 +43,6 @@ function shuffle(array) {
     return array;
 }
 
-
-
-
 function isClickValid(clickTarget) {
     return (
         clickTarget.classList.contains('card') &&
@@ -53,7 +51,6 @@ function isClickValid(clickTarget) {
         !toggledCards.includes(clickTarget)
     );
 }
-
 
 function toggleCard(card) {
     card.classList.toggle('open');
@@ -81,6 +78,11 @@ function checkForMatch() {
     }
 }
 
+function addMove() {
+    moves++;
+    const movesText = document.querySelector('.moves');
+    movesText.innerHTML = moves;
+}
 
 
 
