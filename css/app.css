@@ -17,8 +17,8 @@ body {
 }
 
 body {
-    background: #ffffff url('../img/geometry2.png'); /* Background pattern from Subtle Patterns */
-    font-family: 'Coda', cursive;
+    background: #fff;
+    font-family: 'Myriad', sans-serif;
 }
 
 .container {
@@ -29,8 +29,8 @@ body {
 }
 
 h1 {
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 300;
+    font-family: 'Myriad', sans-serif;
+    text-transform: uppercase;
 }
 
 /*
@@ -69,6 +69,7 @@ h1 {
     transform: rotateY(0);
     background: #02b3e4;
     cursor: default;
+    font-size: 33px;
 }
 
 .deck .card.show {
