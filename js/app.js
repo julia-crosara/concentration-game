@@ -1,11 +1,11 @@
-/*
- * Create a list that holds all of your cards
- */
 const deck = document.querySelector('.deck');
-let toggledCards = [];
+let cards = document.querySelectorAll(".card");
+let openCards = [];
 let moves = 0;
 
-function shuffleDeck() {
+
+//Shuffle the cards at the start of the game
+function shuffleCards() {
     const cardsToShuffle = Array.from(document.querySelectorAll('.card'));
     const shuffledCards = shuffle(cardsToShuffle);
     for (card of shuffledCards) {
@@ -13,19 +13,7 @@ function shuffleDeck() {
     }
 }
 
-shuffleDeck();
-
-deck.addEventListener('click', function() {
-    const clickTarget = event.target;
-    if (isClickValid(clickTarget)) {
-        toggleCard(clickTarget);
-        addToggleCard(clickTarget);
-        if (toggledCards.length === 2) {
-            checkForMatch(clickTarget);
-            addMove();
-        }
-    }
-});
+shuffleCards();
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -42,47 +30,65 @@ function shuffle(array) {
 
     return array;
 }
+//
 
-function isClickValid(clickTarget) {
-    return (
-        clickTarget.classList.contains('card') &&
-        !clickTarget.classList.contains('match') &&
-        toggledCards.length < 2 &&
-        !toggledCards.includes(clickTarget)
-    );
+//addEventListener to listen for clicks and toggle "open" when clicked
+//add the first two clicked cards to an array
+//start tracking the moves
+deck.addEventListener('click', event => {
+    const clickedCard = event.target;
+    if (clickedCard.classList.contains('card') && openCards.length < 2) {
+        toggleCard(clickedCard);
+        addClickedCard(clickedCard);
+        if (openCards.length === 2) {
+            compareOpenCards();
+            trackMoves();
+        }
+    }
+});
+
+//"turn over" clicked cards by toggling open & show classes
+function toggleCard(clickedCard) {
+    clickedCard.classList.toggle('open');
+    clickedCard.classList.toggle('show');
 }
 
-function toggleCard(card) {
-    card.classList.toggle('open');
-    card.classList.toggle('show');
+//add clicked cards to an array
+function addClickedCard(clickedCard) {
+    openCards.push(clickedCard);
 }
 
-function addToggleCard(clickTarget) {
-    toggledCards.push(clickTarget);
-    console.log(toggledCards);
-}
-
-function checkForMatch() {
+//compare the two open cards and see if they match
+//if they match, toggle the match class (turns them green & keeps them open) and empty the array
+//if they do not match, toggle the open & show classes; keep them visible for two seconds; and empty the array
+function compareOpenCards() {
     if (
-        toggledCards[0].firstElementChild.className === toggledCards[1].firstElementChild.className
+        openCards[0].firstElementChild.className ===
+        openCards[1].firstElementChild.className
     ) {
-        toggledCards[0].classList.toggle('match');
-        toggledCards[1].classList.toggle('match');
-        toggledCards = [];
+        openCards[0].classList.toggle('match');
+        openCards[1].classList.toggle('match');
+        openCards = [];
     } else {
-        setTimeout(function() {
-            toggleCard(toggledCards[0]);
-            toggleCard(toggledCards[1]);
-            toggledCards = [];
+        setTimeout(() => {
+            toggleCard(openCards[0]);
+            toggleCard(openCards[1]);
+            openCards = [];
         }, 2000);
     }
 }
 
-function addMove() {
-    moves++;
-    const movesText = document.querySelector('.moves');
-    movesText.innerHTML = moves;
+//track the number of moves; a move is registered after two clicks
+function trackMoves() {
+        moves++;
+        const score = document.querySelector('.moves');
+        score.innerHTML = moves;
 }
+
+
+
+
+
 
 
 
