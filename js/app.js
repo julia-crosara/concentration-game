@@ -43,6 +43,7 @@ deck.addEventListener('click', event => {
         if (openCards.length === 2) {
             compareOpenCards();
             trackMoves();
+            trackStars();
         }
     }
 });
@@ -85,20 +86,23 @@ function trackMoves() {
         score.innerHTML = moves;
 }
 
+//set the star rating based on number of moves
+function trackStars() {
+    if (moves === 5 || moves === 10) {
+        hideStar();
+    }
+}
+
+function hideStar() {
+    const allStars = document.querySelectorAll('.stars li');
+    for (star of allStars) {
+        if (star.style.display !== 'none') {
+            star.style.display = 'none';
+            break;
+        }
+    }
+}
 
 
-
-
-
-
-
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
+ // *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
+ // */
