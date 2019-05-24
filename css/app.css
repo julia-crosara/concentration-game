@@ -18,7 +18,8 @@ body {
 
 body {
     background: #fff;
-    font-family: 'Myriad', sans-serif;
+    font-family: 'Lato', sans-serif;
+    color: #333;
 }
 
 .container {
@@ -28,9 +29,21 @@ body {
     flex-direction: column;
 }
 
+.banner {
+    width: 100%;
+    height: 100px;
+    background-color: #8c61af;
+    text-align: center;
+    margin: 0 0 20px 0;
+}
+
 h1 {
-    font-family: 'Myriad', sans-serif;
+    font-family: 'Lato', sans-serif;
+    font-size: 3em;
+    color: #fff;
     text-transform: uppercase;
+    margin: .5em 0;
+
 }
 
 /*
@@ -86,17 +99,25 @@ h1 {
  * Styles for the Score Panel
  */
 
+ .moves-text {
+     display: inline-block;
+     font-size: 1.25em;
+     font-weight: bold;
+     color: #53504d;
+ }
+
 .score-panel {
     text-align: left;
-    width: 345px;
-    margin-bottom: 10px;
+    width: 625px;
+    margin-bottom: 15px;
 }
 
 .score-panel .stars {
     margin: 0;
     padding: 0;
     display: inline-block;
-    margin: 0 5px 0 0;
+    margin: 0 1em;
+    color: #f7ac5b;
 }
 
 .score-panel .stars li {
@@ -107,4 +128,10 @@ h1 {
 .score-panel .restart {
     float: right;
     cursor: pointer;
+    font-size: 1.25em;
+    color: #53504d;
+}
+
+.fa.fa-repeat {
+    margin-left: 7px;
 }
