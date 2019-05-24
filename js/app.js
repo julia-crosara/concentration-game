@@ -1,7 +1,11 @@
+// Global Variables
 const deck = document.querySelector('.deck');
 let cards = document.querySelectorAll(".card");
 let openCards = [];
 let moves = 0;
+let time = 0;
+let timerOff = true;
+let timerId;
 
 
 //Shuffle the cards at the start of the game
@@ -32,13 +36,17 @@ function shuffle(array) {
 }
 //
 
-//addEventListener to listen for clicks and toggle "open" when clicked
+//add click listener and toggle "open" when clicked
 //add the first two clicked cards to an array
-//start tracking the moves
+//start tracking the  number of moves
 deck.addEventListener('click', event => {
     const clickedCard = event.target;
     if (clickedCard.classList.contains('card') && openCards.length < 2) {
         toggleCard(clickedCard);
+        if (timerOff){
+            startTimer();
+            timerOff = false;
+        }
         addClickedCard(clickedCard);
         if (openCards.length === 2) {
             compareOpenCards();
@@ -75,7 +83,7 @@ function compareOpenCards() {
             toggleCard(openCards[0]);
             toggleCard(openCards[1]);
             openCards = [];
-        }, 2000);
+        }, 1500);
     }
 }
 
@@ -86,9 +94,31 @@ function trackMoves() {
         score.innerHTML = moves;
 }
 
+
+//show timer in score panel
+function displayTimer() {
+    const timer = document.querySelector('.timer');
+    console.log(timer)
+    timer.textContent = time;
+}
+
+//timer functionality
+function startTimer() {
+    timerId = setInterval(() => {
+        time++;
+        displayTimer();
+        console.log(time);
+    }, 1000);
+}
+
+function stopTimer() {
+    clearInterval(timerId);
+}
+
 //set the star rating based on number of moves
+//player starts with 4 stars; loses a star after 15, 25
 function trackStars() {
-    if (moves === 5 || moves === 10) {
+    if (moves === 15 || moves === 25) {
         hideStar();
     }
 }
