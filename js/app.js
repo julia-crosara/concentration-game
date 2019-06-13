@@ -1,4 +1,8 @@
-// Global Variables
+// Author: Julia Crosara
+// FEND Project 2: Memory Game
+
+
+//global scope
 const deck = document.querySelector('.deck');
 let cards = document.querySelectorAll(".card");
 let openCards = [];
@@ -8,7 +12,7 @@ let timerOff = true;
 let timerId;
 
 
-//Shuffle the cards at the start of the game
+//shuffle the cards at the start of the game
 function shuffleCards() {
     const cardsToShuffle = Array.from(document.querySelectorAll('.card'));
     const shuffledCards = shuffle(cardsToShuffle);
@@ -19,7 +23,7 @@ function shuffleCards() {
 
 shuffleCards();
 
-// Shuffle function from http://stackoverflow.com/a/2450976
+// shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
     var currentIndex = array.length,
         temporaryValue, randomIndex;
@@ -34,23 +38,22 @@ function shuffle(array) {
 
     return array;
 }
-//
 
-//add click listener and toggle "open" when clicked
+//add event listener and toggle open class when clicked
 //add the first two clicked cards to an array
-//start tracking the  number of moves
+//start counting moves
 deck.addEventListener('click', event => {
     const clickedCard = event.target;
     if (clickedCard.classList.contains('card') && openCards.length < 2) {
         toggleCard(clickedCard);
-        if (timerOff){
+        if (timerOff) {
             startTimer();
             timerOff = false;
         }
         addClickedCard(clickedCard);
         if (openCards.length === 2) {
             compareOpenCards();
-            trackMoves();
+            countMoves();
             trackStars();
         }
     }
@@ -68,8 +71,8 @@ function addClickedCard(clickedCard) {
 }
 
 //compare the two open cards and see if they match
-//if they match, toggle the match class (turns them green & keeps them open) and empty the array
-//if they do not match, toggle the open & show classes; keep them visible for two seconds; and empty the array
+    //if they match, toggle the match class (cards turn green and stay open); empty the array
+    //if they do not match, toggle the open & show classes; keep visible for 1.5 seconds; empty the array
 function compareOpenCards() {
     if (
         openCards[0].firstElementChild.className ===
@@ -87,22 +90,20 @@ function compareOpenCards() {
     }
 }
 
-//track the number of moves; a move is registered after two clicks
-function trackMoves() {
-        moves++;
-        const score = document.querySelector('.moves');
-        score.innerHTML = moves;
+
+//Move Counter
+function countMoves() {
+    moves++;
+    const score = document.querySelector('.moves');
+    score.innerHTML = moves;
 }
 
-
-//show timer in score panel
-function displayTimer() {
-    const timer = document.querySelector('.timer');
-    console.log(timer)
-    timer.textContent = time;
+function resetMoves() {
+    moves = 0;
+    document.querySelector('.moves').innerHTML = moves;
 }
 
-//timer functionality
+//Timer
 function startTimer() {
     timerId = setInterval(() => {
         time++;
@@ -115,15 +116,39 @@ function stopTimer() {
     clearInterval(timerId);
 }
 
-//set the star rating based on number of moves
-//player starts with 4 stars; loses a star after 15, 25
-function trackStars() {
-    if (moves === 15 || moves === 25) {
-        hideStar();
+// Reset Timer
+function resetTimer() {
+    stopTimer();
+    timerOff = true;
+    time = 0;
+    displayTimer();
+}
+
+//Display timer in score panel
+function displayTimer() {
+    const timer = document.querySelector('.timer');
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+    console.log(timer)
+    timer.textContent = time;
+    if (seconds < 10) {
+        timer.textContent = `${minutes}:0${seconds}`;
+    } else {
+        timer.textContent = `${minutes}:${seconds}`;
     }
 }
 
-function hideStar() {
+//Star Rating
+
+//set the star rating based on number of moves
+//player starts with 4 stars; loses a star after 15, 30 moves
+function trackStars() {
+    if (moves === 15 || moves === 30) {
+        removeStar();
+    }
+}
+
+function removeStar() {
     const allStars = document.querySelectorAll('.stars li');
     for (star of allStars) {
         if (star.style.display !== 'none') {
@@ -133,6 +158,28 @@ function hideStar() {
     }
 }
 
+function resetStars() {
+    stars = 0;
+    const starList = document.querySelectorAll('.stars .li');
+    for (star of starList) {
+        star.style.display = 'inline';
+    }
+}
 
- // *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- // */
+// Restart Button
+function resetGame() {
+    resetTimer();
+    resetMoves();
+    resetStars();
+    shuffleCards();
+}
+
+// ?? //
+document.querySelector('.restart').addEventListener('click', resetGame());
+
+
+
+
+
+// *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
+// */
