@@ -1,33 +1,41 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
-    <title>Matching Game</title>
+    <title>FEND Project 2: Memory Game</title>
     <meta name="description" content="">
     <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-    <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Coda">
+    <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Lato&display=swap">
     <link rel="stylesheet" href="css/app.css">
 </head>
+
 <body>
 
     <div class="container">
-        <header>
-            <h1>Matching Game</h1>
-        </header>
+        <div class="banner">
+            <header>
+                <h1>Concentration 2.0</h1>
+            </header>
+        </div>
+        <div class="score-panel">
 
-        <section class="score-panel">
-        	<ul class="stars">
-        		<li><i class="fa fa-star"></i></li>
-        		<li><i class="fa fa-star"></i></li>
-        		<li><i class="fa fa-star"></i></li>
-        	</ul>
+            <ul class="controls">
+                <li>Moves: <span class="moves">0</span></li>
+                <li>Timer: <span class="timer">0:00</span></li>
+                <li>
+                    <ul class="stars">
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                    </ul>
+                </li>
+                <li class="restart">Play Again<i class="fa fa-repeat"></i></li>
+            </ul>
 
-        	<span class="moves">3</span> Moves
 
-            <div class="restart">
-        		<i class="fa fa-repeat"></i>
-        	</div>
-        </section>
+        </div>
 
         <ul class="deck">
             <li class="card">
@@ -36,7 +44,7 @@
             <li class="card">
                 <i class="fa fa-paper-plane-o"></i>
             </li>
-            <li class="card match">
+            <li class="card">
                 <i class="fa fa-anchor"></i>
             </li>
             <li class="card">
@@ -45,7 +53,7 @@
             <li class="card">
                 <i class="fa fa-cube"></i>
             </li>
-            <li class="card match">
+            <li class="card">
                 <i class="fa fa-anchor"></i>
             </li>
             <li class="card">
@@ -66,7 +74,7 @@
             <li class="card">
                 <i class="fa fa-bomb"></i>
             </li>
-            <li class="card open show">
+            <li class="card">
                 <i class="fa fa-bolt"></i>
             </li>
             <li class="card">
@@ -81,6 +89,22 @@
         </ul>
     </div>
 
+
+    <!-- Trigger/Open The Modal -->
+    <button id="myBtn">Open Modal</button>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Some text in the Modal.</p>
+        </div>
+
+    </div>
+
     <script src="js/app.js"></script>
 </body>
+
 </html>
