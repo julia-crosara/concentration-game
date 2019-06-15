@@ -2,8 +2,8 @@
 // FEND Project 2: Memory Game
 
 
-//global scope
-const deck = document.querySelector('.deck');
+//Global scope
+const deck = document.querySelector(".deck");
 let cards = document.querySelectorAll(".card");
 let openCards = [];
 let moves = 0;
@@ -12,9 +12,9 @@ let timerOff = true;
 let timerId;
 
 
-//shuffle the cards at the start of the game
+//Shuffle the cards at the start of the game
 function shuffleCards() {
-    const cardsToShuffle = Array.from(document.querySelectorAll('.card'));
+    const cardsToShuffle = Array.from(document.querySelectorAll(".card"));
     const shuffledCards = shuffle(cardsToShuffle);
     for (card of shuffledCards) {
         deck.appendChild(card);
@@ -23,7 +23,7 @@ function shuffleCards() {
 
 shuffleCards();
 
-// shuffle function from http://stackoverflow.com/a/2450976
+// Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
     var currentIndex = array.length,
         temporaryValue, randomIndex;
@@ -39,12 +39,12 @@ function shuffle(array) {
     return array;
 }
 
-//add event listener and toggle open class when clicked
-//add the first two clicked cards to an array
-//start counting moves
-deck.addEventListener('click', event => {
+//Add event listener and toggle open class when clicked
+//Add the first two clicked cards to an array
+//Start counting moves & tracking stars
+deck.addEventListener("click", event => {
     const clickedCard = event.target;
-    if (clickedCard.classList.contains('card') && openCards.length < 2) {
+    if (clickedCard.classList.contains("card") && openCards.length < 2) {
         toggleCard(clickedCard);
         if (timerOff) {
             startTimer();
@@ -59,28 +59,28 @@ deck.addEventListener('click', event => {
     }
 });
 
-//"turn over" clicked cards by toggling open & show classes
+//"Turn over" clicked cards by toggling open & show classes
 function toggleCard(clickedCard) {
-    clickedCard.classList.toggle('open');
-    clickedCard.classList.toggle('show');
+    clickedCard.classList.toggle("open");
+    clickedCard.classList.toggle("show");
 }
 
-//add clicked cards to an array
+//Add clicked cards to an array
 function addClickedCard(clickedCard) {
     openCards.push(clickedCard);
 }
 
-//compare the two open cards and see if they match
-    //if they match, toggle the match class (cards turn green and stay open); empty the array
-    //if they do not match, toggle the open & show classes; keep visible for 1.5 seconds; empty the array
+//Compare the two open cards and see if they match
 function compareOpenCards() {
+    //If they match, toggle the match class (cards turn green and stay open); empty the array
     if (
         openCards[0].firstElementChild.className ===
         openCards[1].firstElementChild.className
     ) {
-        openCards[0].classList.toggle('match');
-        openCards[1].classList.toggle('match');
+        openCards[0].classList.toggle("match");
+        openCards[1].classList.toggle("match");
         openCards = [];
+    //If they do not match, toggle the open & show classes; keep visible for 1.5 seconds; empty the array
     } else {
         setTimeout(() => {
             toggleCard(openCards[0]);
@@ -90,17 +90,16 @@ function compareOpenCards() {
     }
 }
 
-
-//Move Counter
+//Move counter
 function countMoves() {
     moves++;
-    const score = document.querySelector('.moves');
+    const score = document.querySelector(".moves");
     score.innerHTML = moves;
 }
 
 function resetMoves() {
     moves = 0;
-    document.querySelector('.moves').innerHTML = moves;
+    document.querySelector(".moves").innerHTML = moves;
 }
 
 //Timer
@@ -116,7 +115,7 @@ function stopTimer() {
     clearInterval(timerId);
 }
 
-// Reset Timer
+// Reset timer
 function resetTimer() {
     stopTimer();
     timerOff = true;
@@ -126,7 +125,7 @@ function resetTimer() {
 
 //Display timer in score panel
 function displayTimer() {
-    const timer = document.querySelector('.timer');
+    const timer = document.querySelector(".timer");
     const minutes = Math.floor(time / 60);
     const seconds = time % 60;
     console.log(timer)
@@ -138,44 +137,44 @@ function displayTimer() {
     }
 }
 
-//Star Rating
+//Star rating
 
-//set the star rating based on number of moves
-//player starts with 4 stars; loses a star after 15, 30 moves
+//Set the star rating based on number of moves
+//Player starts with 4 stars; loses a star after 15, 30 moves
 function trackStars() {
     if (moves === 15 || moves === 30) {
         removeStar();
     }
 }
-
+// Remove star by hiding it
 function removeStar() {
-    const allStars = document.querySelectorAll('.stars li');
+    const allStars = document.querySelectorAll(".stars li");
     for (star of allStars) {
-        if (star.style.display !== 'none') {
-            star.style.display = 'none';
+        if (star.style.display !== "none") {
+            star.style.display = "none";
             break;
         }
     }
 }
-
+// Reset to 4 stars
 function resetStars() {
     stars = 0;
-    const starList = document.querySelectorAll('.stars .li');
+    const starList = document.querySelectorAll(".stars .li");
     for (star of starList) {
-        star.style.display = 'inline';
+        star.style.display = "inline";
     }
 }
 
-// Restart Button
-function resetGame() {
+// Restart button
+function restartGame() {
+    shuffleCards();
     resetTimer();
     resetMoves();
     resetStars();
-    shuffleCards();
 }
 
 // ?? //
-document.querySelector('.restart').addEventListener('click', resetGame());
+document.querySelector(".restart").addEventListener("click", restartGame());
 
 // Get the modal
 var modal = document.getElementById("myModal");
