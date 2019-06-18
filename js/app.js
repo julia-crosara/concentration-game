@@ -80,7 +80,7 @@ function compareOpenCards() {
         openCards[0].classList.toggle("match");
         openCards[1].classList.toggle("match");
         openCards = [];
-    //If they do not match, toggle the open & show classes; keep visible for 1.5 seconds; empty the array
+        //If they do not match, toggle the open & show classes; keep visible for 1.5 seconds; empty the array
     } else {
         setTimeout(() => {
             toggleCard(openCards[0]);
@@ -177,32 +177,27 @@ function restartGame() {
 document.querySelector(".restart").addEventListener("click", restartGame());
 
 // Get the modal
-var modal = document.getElementById("myModal");
+var modal = document.getElementById("modal-bg");
 
 // Get the button that opens the modal
-var btn = document.getElementById("myBtn");
+var btn = document.getElementById("btn");
 
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
 
 // When the user clicks on the button, open the modal
 btn.onclick = function() {
-  modal.style.display = "block";
+    modal.style.display = "block";
 }
 
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
-  modal.style.display = "none";
+    modal.style.display = "none";
 }
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
 }
-
-
-
-// *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
-// */
