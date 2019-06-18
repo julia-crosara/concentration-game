@@ -173,5 +173,33 @@ function restartGame() {
     resetStars();
 }
 
-// ?? //
-document.querySelector(".restart").addEventListener("click", restartGame());
+function toggleModal() {
+    const modal = document.querySelector(".modal-bg");
+    modal.classList.toggle("hide");
+}
+
+toggleModal() //open Modal
+toggleModal() //close Modal
+
+
+//modal tests
+
+time = 121;
+displayTime(); //2:01
+moves = 16;
+checkScore(); // 2 Stars
+
+writeModalStats(); // write stats to modal
+toggleModal(); // open Modal
+
+function writeModalStats() {
+    const timeStat = document.querySelector(".modal-time");
+    const clockTime = document.querySelector(".clock").innerHTML;
+    const movesStat = document.querySelector(".modal-moves");
+    const startsStat = document.querySelector(".modal-stars");
+    const stars = getStars();
+
+    timeStat.innerHTML = `Time = ${clockTime}`;
+    movesStat.innerHTML = `Moves = ${moves}`;
+    starsStat.innerHTML = `Stars = ${stars}`;
+}
