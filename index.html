@@ -90,23 +90,26 @@
     </div>
 
 
-    <!-- Trigger/Open The Modal -->
-    <button id="btn">Open Modal</button>
 
     <!-- The Modal -->
-    <div id="modal-bg" class="modal">
-
-        <!-- Modal content -->
-        <div class="modal-box">
-            <span class="close">&times;</span>
-            <h2>Game Summary</h2>
-            <ul class="modal-stats">
-                <li class="modal-time">Time:</li>
-                <li class="modal-stars">Stars:</li>
-                <li class="modal-moves">Moves:</li>
-            </ul>
+    <div class="modal-bg">
+        <div class="modal-window">
+            <div class="modal-heading">
+                <h2 class="modal-title">Game Summary</h2>
+                <span class="modal-close">x</span>
+            </div>
+            <div class="modal-stats">
+                <ul>
+                    <li>Time:</li>
+                    <li>Stars:</li>
+                    <li>Moves:</li>
+                </ul>
+            </div>
+            <div class="modal-buttons">
+                <button class="modal-button modal-cancel">Cancel</button>
+                <button class="modal-button modal-restart">Restart</button>
+            </div>
         </div>
-
     </div>
 
     <script src="js/app.js"></script>
