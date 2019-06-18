@@ -128,7 +128,6 @@ function displayTimer() {
     const timer = document.querySelector(".timer");
     const minutes = Math.floor(time / 60);
     const seconds = time % 60;
-    console.log(timer)
     timer.textContent = time;
     if (seconds < 10) {
         timer.textContent = `${minutes}:0${seconds}`;
@@ -138,7 +137,6 @@ function displayTimer() {
 }
 
 //Star rating
-
 //Set the star rating based on number of moves
 //Player starts with 4 stars; loses a star after 15, 30 moves
 function trackStars() {
@@ -159,7 +157,7 @@ function removeStar() {
 // Reset to 4 stars
 function resetStars() {
     stars = 0;
-    const starList = document.querySelectorAll(".stars .li");
+    const starList = document.querySelectorAll(".stars li");
     for (star of starList) {
         star.style.display = "inline";
     }
@@ -173,33 +171,44 @@ function restartGame() {
     resetStars();
 }
 
+// Toggles modal window
 function toggleModal() {
     const modal = document.querySelector(".modal-bg");
     modal.classList.toggle("hide");
 }
 
-toggleModal() //open Modal
-toggleModal() //close Modal
+function countStars() {
+    stars = document.querySelectorAll(".stars li");
+    starCount = 0;
+    for (star of stars) {
+        if (star.style.display != "none") {
+            starCount++;
+        }
+    }
+    return starCount;
+}
 
 
-//modal tests
-
-time = 121;
-displayTime(); //2:01
-moves = 16;
-checkScore(); // 2 Stars
-
-writeModalStats(); // write stats to modal
+postModalStats(); // write stats to modal window
 toggleModal(); // open Modal
 
-function writeModalStats() {
+function postModalStats() {
     const timeStat = document.querySelector(".modal-time");
-    const clockTime = document.querySelector(".clock").innerHTML;
+    const clockTime = document.querySelector(".timer").innerHTML;
     const movesStat = document.querySelector(".modal-moves");
-    const startsStat = document.querySelector(".modal-stars");
-    const stars = getStars();
+    const starsStat = document.querySelector(".modal-stars");
+    const stars = countStars();
 
-    timeStat.innerHTML = `Time = ${clockTime}`;
-    movesStat.innerHTML = `Moves = ${moves}`;
-    starsStat.innerHTML = `Stars = ${stars}`;
+    timeStat.innerHTML = `Time: ${clockTime}`;
+    movesStat.innerHTML = `Moves: ${moves}`;
+    starsStat.innerHTML = `Stars: ${stars}`;
 }
+
+
+document.querySelector(".modal-cancel").addEventListener("click", () => {
+    toggleModal();
+});
+
+document.querySelector(".modal-restart").addEventListener("click", () => {
+    // TODO: Call reset game here
+});
