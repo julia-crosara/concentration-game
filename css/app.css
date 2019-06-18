@@ -140,66 +140,64 @@ ul {
     font-size: 33px;
 }
 
-/* The Modal (background) */
-.modal {
-    display: none;
-    /* Hidden by default */
-    position: fixed;
-    /* Stay in place */
-    z-index: 1;
-    /* Sit on top */
-    left: 0;
+/* Modal */
+
+.modal-bg {
+    position: absolute;
     top: 0;
-    width: 100%;
-    /* Full width */
+    left: 0;
     height: 100%;
-    /* Full height */
-    overflow: auto;
-    /* Enable scroll if needed */
-    background-color: rgb(0, 0, 0);
-    /* Fallback color */
-    background-color: rgba(0, 0, 0, 0.4);
-    /* Black w/ opacity */
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5);
 }
 
-/* Modal Content/Box */
-
-.modal-box {
+.modal-window {
     position: relative;
-    background: #fff;
     width: 400px;
-    height: 400px;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -70%);
-    padding: 2em;
-    font-size: 1.5em;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    padding: 0 2rem;
+
+}
+
+.modal-heading {
+    display: flex;
+    justify-content: space-between;
+    /* border-bottom: 1px solid #999; */
+}
+
+.modal-title {
+    font-size: 1.75rem;
+    text-transform: uppercase;
+    color: #5467bb;
+}
+
+.modal-close {
+    font-size: 2rem;
+    padding: 20px 0 0 0;
+    color: gray;
 }
 
 .modal-stats {
-    display: flex;
-    flex-direction: column;
-    padding: 1rem;
+
 }
 
 .modal-stats li {
     list-style: none;
-    line-height: 2.5rem;
+    font-size: 1.5rem;
+    line-height: 3rem;
 }
 
-/* The Close Button */
-.close {
-    color: #999;
-    position: absolute;
-    margin-top: -35px;
-    margin-left: 310px;
-    font-size: 35px;
-    font-weight: bold;
+.modal-buttons {
+    display: flex;
+    justify-content: space-around;
+    padding: 2rem;
 }
 
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
+.modal-button {
+    width: 80px;
+    height: 40px;
+    font-size: 16px;
 }
