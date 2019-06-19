@@ -2,7 +2,7 @@
 // FEND Project 2: Memory Game
 
 
-//Global scope
+// Global scope
 const deck = document.querySelector(".deck");
 let cards = document.querySelectorAll(".card");
 let openCards = [];
@@ -12,7 +12,7 @@ let timerOff = true;
 let timerId;
 
 
-//Shuffle the cards at the start of the game
+// Shuffle the cards at the start of the game
 function shuffleCards() {
     const cardsToShuffle = Array.from(document.querySelectorAll(".card"));
     const shuffledCards = shuffle(cardsToShuffle);
@@ -80,7 +80,7 @@ function compareOpenCards() {
         openCards[0].classList.toggle("match");
         openCards[1].classList.toggle("match");
         openCards = [];
-        //If they do not match, toggle the open & show classes; keep visible for 1.5 seconds; empty the array
+        // If they do not match, toggle open & show classes; keep visible for 1.5 seconds; empty the array
     } else {
         setTimeout(() => {
             toggleCard(openCards[0]);
@@ -136,9 +136,9 @@ function displayTimer() {
     }
 }
 
-//Star rating
-//Set the star rating based on number of moves
-//Player starts with 4 stars; loses a star after 15, 30 moves
+// Star rating
+// Based on number of moves (2 cards per move)
+// Player starts with 4 stars; loses a star after 15, 30 moves
 function trackStars() {
     if (moves === 15 || moves === 30) {
         removeStar();
@@ -171,12 +171,13 @@ function restartGame() {
     resetStars();
 }
 
-// Toggles modal window
+// Toggle modal window (show/hide)
 function toggleModal() {
     const modal = document.querySelector(".modal-bg");
     modal.classList.toggle("hide");
 }
 
+// Convert stars to a number; counts remaining stars for the modal stats
 function countStars() {
     stars = document.querySelectorAll(".stars li");
     starCount = 0;
@@ -188,10 +189,11 @@ function countStars() {
     return starCount;
 }
 
+postModalStats();
+toggleModal();
 
-postModalStats(); // write stats to modal window
-toggleModal(); // open Modal
 
+// Post stats to modal window
 function postModalStats() {
     const timeStat = document.querySelector(".modal-time");
     const clockTime = document.querySelector(".timer").innerHTML;
@@ -205,10 +207,16 @@ function postModalStats() {
 }
 
 
+// Add click listener to close button [x] in upper right corner of modal window
+document.querySelector(".modal-close").addEventListener("click", () => {
+    toggleModal();
+});
+
+// Add click listener to cancel button
 document.querySelector(".modal-cancel").addEventListener("click", () => {
     toggleModal();
 });
 
-document.querySelector(".modal-restart").addEventListener("click", () => {
-    // TODO: Call reset game here
-});
+// document.querySelector(".restart").addEventListener("click", () => {
+//     restartGame();
+// });
