@@ -1,5 +1,6 @@
 // Author: Julia Crosara
 // FEND Project 2: Memory Game
+// Submitted June 19, 2019
 
 
 // Global scope
@@ -10,6 +11,7 @@ let moves = 0;
 let time = 0;
 let timerOff = true;
 let timerId;
+let matched = 0;
 
 
 // Shuffle the cards at the start of the game
@@ -23,11 +25,11 @@ function shuffleCards() {
 
 shuffleCards();
 
+
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
     var currentIndex = array.length,
         temporaryValue, randomIndex;
-
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex -= 1;
@@ -35,13 +37,13 @@ function shuffle(array) {
         array[currentIndex] = array[randomIndex];
         array[randomIndex] = temporaryValue;
     }
-
     return array;
 }
 
-//Add event listener and toggle open class when clicked
-//Add the first two clicked cards to an array
-//Start counting moves & tracking stars
+
+// Add event listener and toggle open class when clicked
+// Add the first two clicked cards to an array
+// Start counting moves & tracking stars
 deck.addEventListener("click", event => {
     const clickedCard = event.target;
     if (clickedCard.classList.contains("card") && openCards.length < 2) {
@@ -59,19 +61,23 @@ deck.addEventListener("click", event => {
     }
 });
 
-//"Turn over" clicked cards by toggling open & show classes
+
+// "Turn over" clicked cards by toggling open & show classes
 function toggleCard(clickedCard) {
     clickedCard.classList.toggle("open");
     clickedCard.classList.toggle("show");
 }
 
-//Add clicked cards to an array
+
+// Add clicked cards to an array
 function addClickedCard(clickedCard) {
     openCards.push(clickedCard);
 }
 
-//Compare the two open cards and see if they match
+
+// Compare the two open cards and see if they match
 function compareOpenCards() {
+    const TOTAL_PAIRS = 8;
     //If they match, toggle the match class (cards turn green and stay open); empty the array
     if (
         openCards[0].firstElementChild.className ===
@@ -80,6 +86,10 @@ function compareOpenCards() {
         openCards[0].classList.toggle("match");
         openCards[1].classList.toggle("match");
         openCards = [];
+        matched++;
+        if (matched === TOTAL_PAIRS) {
+            gameOver();
+        }
         // If they do not match, toggle open & show classes; keep visible for 1.5 seconds; empty the array
     } else {
         setTimeout(() => {
@@ -90,19 +100,22 @@ function compareOpenCards() {
     }
 }
 
-//Move counter
+
+// MOVE COUNTER
 function countMoves() {
     moves++;
     const score = document.querySelector(".moves");
     score.innerHTML = moves;
 }
 
+
 function resetMoves() {
     moves = 0;
     document.querySelector(".moves").innerHTML = moves;
 }
 
-//Timer
+
+// TIMER
 function startTimer() {
     timerId = setInterval(() => {
         time++;
@@ -111,9 +124,11 @@ function startTimer() {
     }, 1000);
 }
 
+
 function stopTimer() {
     clearInterval(timerId);
 }
+
 
 // Reset timer
 function resetTimer() {
@@ -123,7 +138,8 @@ function resetTimer() {
     displayTimer();
 }
 
-//Display timer in score panel
+
+// Display timer in score panel
 function displayTimer() {
     const timer = document.querySelector(".timer");
     const minutes = Math.floor(time / 60);
@@ -136,7 +152,8 @@ function displayTimer() {
     }
 }
 
-// Star rating
+
+// STAR RATING
 // Based on number of moves (2 cards per move)
 // Player starts with 4 stars; loses a star after 15, 30 moves
 function trackStars() {
@@ -144,6 +161,8 @@ function trackStars() {
         removeStar();
     }
 }
+
+
 // Remove star by hiding it
 function removeStar() {
     const allStars = document.querySelectorAll(".stars li");
@@ -154,7 +173,9 @@ function removeStar() {
         }
     }
 }
-// Reset to 4 stars
+
+
+// Reset to default (4 stars)
 function resetStars() {
     stars = 0;
     const starList = document.querySelectorAll(".stars li");
@@ -163,21 +184,16 @@ function resetStars() {
     }
 }
 
-// Restart button
-function restartGame() {
-    shuffleCards();
-    resetTimer();
-    resetMoves();
-    resetStars();
-}
 
+// MODAL WINDOW
 // Toggle modal window (show/hide)
 function toggleModal() {
     const modal = document.querySelector(".modal-bg");
     modal.classList.toggle("hide");
 }
 
-// Convert stars to a number; counts remaining stars for the modal stats
+
+// Count remaining stars; convert stars to a number; post number in modal window
 function countStars() {
     stars = document.querySelectorAll(".stars li");
     starCount = 0;
@@ -189,21 +205,18 @@ function countStars() {
     return starCount;
 }
 
-postModalStats();
-toggleModal();
-
 
 // Post stats to modal window
 function postModalStats() {
-    const timeStat = document.querySelector(".modal-time");
+    const totalTime = document.querySelector(".modal-time");
     const clockTime = document.querySelector(".timer").innerHTML;
-    const movesStat = document.querySelector(".modal-moves");
-    const starsStat = document.querySelector(".modal-stars");
+    const totalMoves = document.querySelector(".modal-moves");
+    const totalStars = document.querySelector(".modal-stars");
     const stars = countStars();
 
-    timeStat.innerHTML = `Time: ${clockTime}`;
-    movesStat.innerHTML = `Moves: ${moves}`;
-    starsStat.innerHTML = `Stars: ${stars}`;
+    totalTime.innerHTML = `Time: ${clockTime}`;
+    totalMoves.innerHTML = `Moves: ${moves}`;
+    totalStars.innerHTML = `Stars: ${stars}`;
 }
 
 
@@ -217,6 +230,48 @@ document.querySelector(".modal-cancel").addEventListener("click", () => {
     toggleModal();
 });
 
-// document.querySelector(".restart").addEventListener("click", () => {
-//     restartGame();
-// });
+
+// RESET GAME
+function resetGame() {
+    resetTimer();
+    resetMoves();
+    resetStars();
+    shuffleCards();
+    resetCards();
+}
+
+
+// Click listener for the restart button (upper right corner)
+document.querySelector(".restart").addEventListener("click", resetGame);
+
+// Click listener for the repeat icon next to restart button
+document.querySelector(".fa-repeat").addEventListener("click", resetGame);
+
+
+// GAME OVER
+function gameOver() {
+    stopTimer();
+    postModalStats();
+    toggleModal();
+}
+
+
+// REPLAY GAME
+function replayGame() {
+    resetGame();
+    toggleModal();
+}
+
+
+// Click listener for the play again button in the modal window
+document.querySelector(".modal-restart").addEventListener("click", replayGame);
+
+
+// RESET CARDS
+// flip them back over to default black
+function resetCards() {
+    const cards = document.querySelectorAll(".deck li");
+    for (let card of cards) {
+        card.className = "card";
+    }
+}
