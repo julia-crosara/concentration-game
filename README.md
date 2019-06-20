@@ -1,20 +1,8 @@
-# Memory Game Project
+# Concentration 2.0
 
-## Table of Contents
+I completed this project for Udacity's Front-End Developer Nanodegree Program
 
-* [Instructions](#instructions)
-* [Contributing](#contributing)
+Technically referred to as the Memory Game Project, I nostalgically named it after the original card game that involves flipping over pairs of cards to find a match.
 
-## Instructions
+Starter code provided some style and structure for the game, but I modified it to taste and built out the app's functionality using JavaScript.
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
-
-To get started, open `js/app.js` and start building out the app's functionality
-
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
-
-## Contributing
-
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
-
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
