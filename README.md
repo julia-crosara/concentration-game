@@ -1,4 +1,4 @@
-# Concentration 2.0: A browser-based card matching game
+# Concentration 2.0: Browser-based card matching game
 
 Project for Udacity's Front-End Developer Nanodegree Program.
 
