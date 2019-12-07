@@ -1,8 +1,9 @@
-# Concentration 2.0
+# Concentration 2.0: A browser-based card matching game
 
 Project for Udacity's Front-End Developer Nanodegree Program.
 
-Starter code provided some style and structure for the game, but I modified it to taste and built out the app's functionality using JavaScript and DOM manipulation.
+I built a grid of cards, added functionality to handle user input, and implemented gameplay logic using HTML, CSS, JavaScript, and the DOM.
+
 
 # Instructions
 
