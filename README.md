@@ -7,6 +7,6 @@ Created for Udacity's Front-End Developer Nanodegree. I built a grid of cards, a
 
 Two ways to run the application:
 
--- Visit https://juliacrosara.github.io/concentration-game/
+-- Visit https://julia-crosara.github.io/concentration-game/
 
 -- Clone or download the repository and open the index.html file in your browser
