@@ -1,6 +1,6 @@
 # Concentration 2.0: A browser-based card matching game
 
-Created for Udacity's Front End Developer Nanodegree. I built a grid of cards, added functionality to handle user input, and implemented gameplay logic using HTML, CSS, JavaScript, and the DOM.
+Created for Udacity's Front End Web Developer program. I built a grid of cards, added functionality to handle user input, and implemented gameplay logic using HTML, CSS, JavaScript, and the DOM.
 
 # How to play the game
 
